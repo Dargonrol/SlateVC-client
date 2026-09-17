@@ -9,8 +9,12 @@ class Project(ConanFile):
 
     requires = (
         "glfw/3.4",
-        "imgui/1.92.9b",
+        "imgui/1.92.9b-docking",
     )
+
+    def configure(self):
+        self.options["imgui"].with_glfw = True
+        self.options["imgui"].with_opengl3 = True
 
     generators = ("CMakeDeps",)
 

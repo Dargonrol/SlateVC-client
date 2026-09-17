@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.23)
-project(DiscordClone VERSION 0.6 LANGUAGES C CXX)
+project(SlateVC_Client VERSION 0.6 LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -21,6 +21,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
         glfw
         glad
         imgui::imgui
+        imgui_backends
 )
 
 include(compiler_warnings)
