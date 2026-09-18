@@ -1,8 +1,11 @@
 #pragma once
 
-class IWindow
+namespace UI::Window
 {
-public:
-    virtual ~IWindow() = default;
-    virtual void Render() = 0;
-};
+    class IWindow
+    {
+    public:
+        virtual ~IWindow() = default;
+        virtual void Render() = 0;
+    };
+}

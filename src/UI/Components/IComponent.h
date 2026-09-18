@@ -1,8 +1,11 @@
 #pragma once
 
-class IComponent
+namespace UI::Component
 {
-public:
-    virtual ~IComponent() = default;
-    virtual void Render() = 0;
-};
+    class IComponent
+    {
+    public:
+        virtual ~IComponent() = default;
+        virtual void Render() = 0;
+    };
+}

@@ -9,6 +9,8 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "Util.h"
+#include "UI/Views/LoginView.h"
+#include "UI/Views/MainView.h"
 
 using namespace Core;
 
@@ -75,6 +77,15 @@ AppErrorCode Application::Init(const int width, const int height, std::string_vi
 
     ImGui_ImplGlfw_InitForOpenGL(window_, true);
     ImGui_ImplOpenGL3_Init("#version 330");
+
+    std::function<void(Model::ViewType)> navCallback = [this](Model::ViewType target)
+    {
+        viewManager_->SwitchView(target);
+    };
+
+    viewManager_ = std::make_unique<UI::ViewManager>();
+    viewManager_->RegisterView<UI::View::LoginView>(Model::ViewType::LOGIN, navCallback);
+    viewManager_->RegisterView<UI::View::MainView>(Model::ViewType::MAIN, navCallback);
 
     return AppErrorCode::SUCCESS;
 }

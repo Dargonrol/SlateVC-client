@@ -1,7 +1,10 @@
 #pragma once
 #include "IComponent.h"
 
-class Container : public IComponent
+namespace UI::Component
 {
+    class Container : public IComponent
+    {
 
-};
+    };
+}

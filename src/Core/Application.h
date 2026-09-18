@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "AppErrorCode.h"
+#include "UI/ViewManager.h"
 
 namespace Core
 {
@@ -25,6 +26,7 @@ namespace Core
 
     private:
         GLFWwindow* window_;
+        std::unique_ptr<UI::ViewManager> viewManager_;
     };
 
 }

@@ -1,7 +1,10 @@
 #pragma once
 #include "IWindow.h"
 
-class ChatWindow : public IWindow
+namespace UI::Window
 {
+    class ChatWindow : public IWindow
+    {
 
-};
+    };
+}

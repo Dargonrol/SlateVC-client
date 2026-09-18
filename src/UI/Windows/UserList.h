@@ -1,7 +1,10 @@
 #pragma once
 #include "IWindow.h"
 
-class UserList :public IWindow
+namespace UI::Window
 {
+    class UserList :public IWindow
+    {
 
-};
+    };
+}

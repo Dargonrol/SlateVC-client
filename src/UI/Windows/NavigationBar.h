@@ -1,7 +1,10 @@
 #pragma once
 #include "IWindow.h"
 
-class NavigationBar : public IWindow
+namespace UI::Window
 {
+    class NavigationBar : public IWindow
+    {
 
-};
+    };
+}

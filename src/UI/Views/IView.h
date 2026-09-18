@@ -1,8 +1,15 @@
 #pragma once
 
-class IView
+namespace UI::View
 {
-public:
-    virtual ~IView() = default;
-    virtual void Render() = 0;
-};
+    class IView
+    {
+    public:
+        virtual ~IView() = default;
+        virtual void Render() = 0;
+
+        virtual void OnEnter() {};
+        virtual void OnExit() {};
+    };
+}
+

@@ -2,7 +2,7 @@
 #include "IComponent.h"
 #include "Model/Message.h"
 
-namespace Components
+namespace UI::Component
 {
     class MessageBubble : public IComponent
     {
