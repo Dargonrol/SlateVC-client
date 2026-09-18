@@ -1,8 +1,9 @@
-//
-// Created by dargonrol on 18.09.26.
-//
+#pragma once
+#include "IView.h"
 
-#ifndef SLATEVC_CLIENT_MAINVIEW_H
-#define SLATEVC_CLIENT_MAINVIEW_H
+class MainView : public IView
+{
+    MainView() = default;
 
-#endif //SLATEVC_CLIENT_MAINVIEW_H
+    void Render() override;
+};

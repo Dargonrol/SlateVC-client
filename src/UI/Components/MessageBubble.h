@@ -1,8 +1,13 @@
-//
-// Created by dargonrol on 18.09.26.
-//
+#pragma once
+#include "IComponent.h"
+#include "Model/Message.h"
 
-#ifndef SLATEVC_CLIENT_MESSAGEBUBBLE_H
-#define SLATEVC_CLIENT_MESSAGEBUBBLE_H
+namespace Components
+{
+    class MessageBubble : public IComponent
+    {
+        void Render() override;
 
-#endif //SLATEVC_CLIENT_MESSAGEBUBBLE_H
+        void Draw(const Model::Message& msg);
+    };
+}

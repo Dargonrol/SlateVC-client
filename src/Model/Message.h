@@ -1,8 +1,9 @@
-//
-// Created by dargonrol on 18.09.26.
-//
+#pragma once
 
-#ifndef SLATEVC_CLIENT_MESSAGE_H
-#define SLATEVC_CLIENT_MESSAGE_H
+namespace Model
+{
+    struct Message
+    {
 
-#endif //SLATEVC_CLIENT_MESSAGE_H
+    };
+}

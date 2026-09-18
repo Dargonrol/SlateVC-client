@@ -1,8 +1,7 @@
-//
-// Created by dargonrol on 18.09.26.
-//
+#pragma once
+#include "IWindow.h"
 
-#ifndef SLATEVC_CLIENT_NAVIGATIONBAR_H
-#define SLATEVC_CLIENT_NAVIGATIONBAR_H
+class NavigationBar : public IWindow
+{
 
-#endif //SLATEVC_CLIENT_NAVIGATIONBAR_H
+};

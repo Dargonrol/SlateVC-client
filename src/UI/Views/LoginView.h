@@ -1,8 +1,7 @@
-//
-// Created by dargonrol on 18.09.26.
-//
+#pragma once
+#include "IView.h"
 
-#ifndef SLATEVC_CLIENT_LOGINVIEW_H
-#define SLATEVC_CLIENT_LOGINVIEW_H
+class LoginView : public IView
+{
 
-#endif //SLATEVC_CLIENT_LOGINVIEW_H
+};

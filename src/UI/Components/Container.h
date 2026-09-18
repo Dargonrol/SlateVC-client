@@ -1,8 +1,7 @@
-//
-// Created by dargonrol on 18.09.26.
-//
+#pragma once
+#include "IComponent.h"
 
-#ifndef SLATEVC_CLIENT_CONTAINER_H
-#define SLATEVC_CLIENT_CONTAINER_H
+class Container : public IComponent
+{
 
-#endif //SLATEVC_CLIENT_CONTAINER_H
+};
