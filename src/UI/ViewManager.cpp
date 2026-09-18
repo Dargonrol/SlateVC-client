@@ -2,7 +2,7 @@
 
 using namespace UI;
 
-void ViewManager::SwitchView(Model::ViewType& type)
+void ViewManager::SwitchView(const Model::ViewType type)
 {
     const auto iter = registeredViews_.find(type);
     if (iter == registeredViews_.end())

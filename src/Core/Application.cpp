@@ -118,12 +118,12 @@ Application::~Application()
 
 void Application::Run()
 {
+    viewManager_->SwitchView(Model::ViewType::LOGIN);
+
     while (!glfwWindowShouldClose(window_))
     {
         Update();
-
         Render();
-
     }
 }
 
@@ -131,7 +131,7 @@ void Application::Render()
 {
     PreRender();
 
-    // Render stuff
+    viewManager_->Render();
 
     PostRender();
 }
