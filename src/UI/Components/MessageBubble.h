@@ -6,7 +6,7 @@ namespace UI::Component
 {
     class MessageBubble : public IComponent
     {
-        void Render() override;
+        void Render(Theme& theme) override;
 
         void Draw(const Model::Message& msg);
     };

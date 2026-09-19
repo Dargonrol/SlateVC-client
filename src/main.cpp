@@ -19,3 +19,5 @@ int main ()
 
     return 0;
 }
+
+// when fullscreen message transparent pop up type shit

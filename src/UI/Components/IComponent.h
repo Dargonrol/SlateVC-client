@@ -1,4 +1,5 @@
 #pragma once
+#include "Model/Theme.h"
 
 namespace UI::Component
 {
@@ -6,6 +7,6 @@ namespace UI::Component
     {
     public:
         virtual ~IComponent() = default;
-        virtual void Render() = 0;
+        virtual void Render(Theme& theme) = 0;
     };
 }

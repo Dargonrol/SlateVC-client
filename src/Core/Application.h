@@ -17,9 +17,10 @@ namespace Core
         AppErrorCode Init(int width, int height, std::string_view title);
         void Run();
 
+        void Render();
+
     private:
         void Update();
-        void Render();
 
         void PreRender() const;
         void PostRender() const;

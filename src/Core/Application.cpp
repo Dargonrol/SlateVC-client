@@ -10,10 +10,23 @@
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
 #include "Util.h"
-#include "UI/Views/LoginView.h"
+#include "UI/Views/LoginView.hpp"
 #include "UI/Views/MainView.h"
 
 using namespace Core;
+
+void WindowResizeCallback(GLFWwindow* window, const int width, const int height)
+{
+    if (width == 0 || height == 0) return;
+
+    glViewport(0, 0, width, height);
+
+    auto* app = static_cast<Application*>(glfwGetWindowUserPointer(window));
+
+    if (app)
+    {
+    }
+}
 
 Application::Application(AppErrorCode* error) : window_(nullptr)
 {
@@ -40,6 +53,8 @@ Application::Application(AppErrorCode* error) : window_(nullptr)
 AppErrorCode Application::Init(const int width, const int height, std::string_view title)
 {
     {
+        glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
         GLFWwindow* window = glfwCreateWindow(width, height, std::string(title).c_str(), nullptr, nullptr);
         if (!window)
         {
@@ -49,6 +64,10 @@ AppErrorCode Application::Init(const int width, const int height, std::string_vi
 
         window_ = window;
     }
+
+    glfwSetWindowUserPointer(window_, this);
+
+    //glfwSetFramebufferSizeCallback(window_, WindowResizeCallback);
 
     glfwMakeContextCurrent(window_);
     glfwSwapInterval(1); // VSync, enabled for now
@@ -147,7 +166,7 @@ void Application::PreRender() const
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport());
+    ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 }
 
 void Application::PostRender() const
@@ -156,6 +175,8 @@ void Application::PostRender() const
 
     int width, height;
     glfwGetFramebufferSize(window_, &width, &height);
+    if (width == 0 || height == 0) return;
+
     GLCall(glViewport(0, 0, width, height));
 
     GLCall(glClearColor(0.10f, 0.11f, 0.13f, 1.00f));
