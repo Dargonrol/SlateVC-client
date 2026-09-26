@@ -23,34 +23,12 @@ namespace UI::Window
 
             ImGui::Begin("ServerAndStatus", nullptr, windowFlags);
             size_ = ImGui::GetWindowSize();
+
             ImGui::Text("Server & Status");
+            ImGui::Text("Server & Status");
+            ImGui::Text("Server & Status");ImGui::Text("Server & Status");ImGui::Text("Server & Status");
 
-            // TODO: MAKE THIS PRETTY, SCALABLE AND MODULAR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            ImGui::SameLine();
-
-            float contentWidth = ImGui::GetContentRegionAvail().x;
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + contentWidth - 4.0f + ImGui::GetStyle().WindowPadding.x);
-
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
-            ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 0));
-            ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0, 0, 0, 0));
-
-            ImGui::Button("##ResizeRight", ImVec2(4.0f, ImGui::GetContentRegionAvail().y));
-
-            if (ImGui::IsItemActive())
-            {
-                float mouseDeltaX = ImGui::GetIO().MouseDelta.x;
-                size_.x += mouseDeltaX;
-                size_.x = std::clamp(size_.x, minSize.x, maxSize.x);
-                ImGui::SetWindowSize(size_);
-            }
-
-            if (ImGui::IsItemHovered() || ImGui::IsItemActive())
-                ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeEW);
-
-            ImGui::PopStyleColor(4);
-
+            Resizable::MakeWindowResizable_Right(size_, minSize, maxSize);
             ImGui::End();
         }
     };

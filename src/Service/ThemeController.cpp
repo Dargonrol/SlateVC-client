@@ -4,6 +4,7 @@ namespace Service
 {
     void ThemeController::PushGlobalTheme() const
     {
+        ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
         ImGui::PushStyleColor(ImGuiCol_FrameBg, currentTheme_.globalContext.bgColor);
         ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, currentTheme_.globalContext.bgColor2);
         ImGui::PushStyleColor(ImGuiCol_FrameBgActive, currentTheme_.globalContext.bgColor2);
@@ -17,7 +18,7 @@ namespace Service
 
     void ThemeController::PopGlobalTheme() const
     {
-        ImGui::PopStyleVar(3);
+        ImGui::PopStyleVar(4);
         ImGui::PopStyleColor(6);
     }
 
