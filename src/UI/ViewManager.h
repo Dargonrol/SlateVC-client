@@ -20,6 +20,7 @@ namespace UI {
         }
 
         void Render() const;
+        void Update() const;
         void SwitchView(Model::ViewType type);
 
         [[nodiscard]] Model::ViewType GetCurrentViewType() const;

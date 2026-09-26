@@ -24,6 +24,12 @@ void ViewManager::Render() const
         currentView_->Render();
 }
 
+void ViewManager::Update() const
+{
+    if (currentView_)
+        currentView_->Update();
+}
+
 Model::ViewType ViewManager::GetCurrentViewType() const
 {
     return currentViewType_;

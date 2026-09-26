@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 
-//#include "imgui_impl_opengl3_loader.h"
 #include "glad/glad.h"
 
 #if defined(__clang__) || defined(__GNUC__)
@@ -56,3 +55,18 @@ inline void debug_info()
     std::cout << std::flush;
 #endif
 }
+
+class InvisibleResizeGrip
+{
+public:
+    InvisibleResizeGrip()
+    {
+        ImGui::PushStyleColor(ImGuiCol_ResizeGrip, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+        ImGui::PushStyleColor(ImGuiCol_ResizeGripHovered, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+        ImGui::PushStyleColor(ImGuiCol_ResizeGripActive, ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+    }
+    ~InvisibleResizeGrip()
+    {
+        ImGui::PopStyleColor(3);
+    }
+};

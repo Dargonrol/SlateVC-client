@@ -34,3 +34,9 @@ cmake --build --preset debug -j 8
 # cleanbuild:
 cmake --build --preset debug --target clean
 ```
+
+
+# ideas
+- Background customization:
+  - When selecting picture, render via opengl and use Texture shader. 
+  - User can set custom shader.

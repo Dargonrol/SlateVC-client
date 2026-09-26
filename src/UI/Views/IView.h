@@ -7,6 +7,7 @@ namespace UI::View
     public:
         virtual ~IView() = default;
         virtual void Render() = 0;
+        virtual void Update() {};
 
         virtual void OnEnter() {};
         virtual void OnExit() {};

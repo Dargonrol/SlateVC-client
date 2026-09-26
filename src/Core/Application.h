@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 
 #include "AppErrorCode.h"
+#include "Service/ThemeController.h"
 #include "UI/ViewManager.h"
 
 namespace Core
@@ -20,14 +21,15 @@ namespace Core
         void Render();
 
     private:
-        void Update();
 
+        void Update();
         void PreRender() const;
         void PostRender() const;
 
     private:
         GLFWwindow* window_;
         std::unique_ptr<UI::ViewManager> viewManager_;
+        std::unique_ptr<Service::ThemeController> themeController_;
     };
 
 }

@@ -7,6 +7,6 @@ namespace UI::Component
     {
     public:
         virtual ~IComponent() = default;
-        virtual void Render(Theme& theme) = 0;
+        virtual void Render(const Model::Theme& theme) = 0;
     };
 }

@@ -4,6 +4,8 @@
 #include <imgui.h>
 
 #include "IComponent.h"
+#include "Model/Alignment.h"
+#include "Service/ThemeController.h"
 
 namespace  UI::Component
 {
@@ -15,9 +17,9 @@ namespace  UI::Component
         TextInputField(std::string label, std::string placeholder, const bool isPassword = false) : label_(std::move(label)), placeholder_(std::move(placeholder)), isPassword_(isPassword) {}
 
         void SetSubmitCallback(const SubmitCallback& onSubmit) { onSubmit_ = onSubmit; }
-        void SetInputBuffer(char* buffer, size_t bufferSize) { buffer_ = buffer; bufferSize_ = bufferSize; }
+        void SetInputBuffer(char* buffer, const size_t bufferSize) { buffer_ = buffer; bufferSize_ = bufferSize; }
 
-        void Render(Theme& theme) override
+        void Render(const Model::Theme& theme) override
         {
             ImGui::PushID(this);
 
@@ -27,31 +29,23 @@ namespace  UI::Component
                 return;
             }
 
-            ImGui::PushStyleColor(ImGuiCol_FrameBg, theme.bgColor);
-            ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, theme.bgColor2);
-            ImGui::PushStyleColor(ImGuiCol_FrameBgActive, theme.bgColor2);
-            ImGui::PushStyleColor(ImGuiCol_Border, theme.borderColor);
-            ImGui::PushStyleColor(ImGuiCol_Text, theme.textColor);
-            ImGui::PushStyleColor(ImGuiCol_TextSelectedBg, ImVec4(0.26f, 0.59f, 0.98f, 0.35f));
-            ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, theme.rounding);
-            ImGui::PushStyleVar(ImGuiStyleVar_FrameBorderSize, theme.borderWidth);
-            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, theme.framePadding);
+            if (theme.customTextInputField)
+                Service::ThemeController::PushRenderContext(theme.textInputField);
 
             ImGuiInputTextFlags flags = ImGuiInputTextFlags_EnterReturnsTrue;
+
             if (isPassword_)
                 flags |= ImGuiInputTextFlags_Password;
 
-            ImGui::PushItemWidth(-FLT_MIN);
+            ImGui::SetNextItemWidth(-FLT_MIN);
 
             bool submitted = ImGui::InputTextWithHint(label_.c_str(), placeholder_.c_str(), buffer_, bufferSize_, flags);
 
             if (submitted && onSubmit_ && buffer_[0] != '\0')
                 onSubmit_(buffer_);
 
-            ImGui::PopItemWidth();
-
-            ImGui::PopStyleVar(3);
-            ImGui::PopStyleColor(6);
+            if (theme.customTextInputField)
+                Service::ThemeController::PopRenderContext(theme.textInputField);
 
             ImGui::PopID();
         }
@@ -62,6 +56,9 @@ namespace  UI::Component
         bool isPassword_ = false;
         SubmitCallback onSubmit_ = nullptr;
         char* buffer_ = nullptr;
-        size_t bufferSize_;
+        size_t bufferSize_ = 0;
+
+        // Todo: No submit button. This is atomic  element. element can be transparent. place button next to textfield and place both in horizontal alignment conatiner. The container can then be rounded ans stylized
+        // Model::Position textPosition_ = Model::Position::CENTER; // not possible in ImGui
     };
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include "IView.h"
-#include "Model/ViewType.h"
 #include <functional>
 
 #include "UI/Components/IComponent.h"
@@ -15,7 +14,7 @@ namespace UI::View
     public:
         using NavCallback = std::function<void(Model::ViewType)>;
 
-        explicit LoginView(NavCallback navCallback) : navCallback_(std::move(navCallback))
+        explicit LoginView(NavCallback navCallback, const Service::ThemeController& themeController) : navCallback_(std::move(navCallback)), themeController_(themeController)
         {
             using SubmitCallback = std::function<void(const std::string&)>;
 
@@ -56,13 +55,10 @@ namespace UI::View
 
             constexpr ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoResize;
 
-            Theme theme{};
-            ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, theme.rounding); // z.B. 12.0f
-            ImGui::PushStyleVar(ImGuiStyleVar_WindowBorderSize, theme.borderWidth); // z.B. 1.0f
-            ImGui::PushStyleColor(ImGuiCol_WindowBg, theme.bgColor);
-            ImGui::PushStyleColor(ImGuiCol_Border, theme.borderColor);
 
             ImGui::Begin("Login Window", nullptr, windowFlags);
+
+            const Model::Theme& theme = themeController_.GetCurrentTeme();
 
             serverAddressField_->Render(theme);
             ImGui::Spacing();
@@ -72,9 +68,6 @@ namespace UI::View
             passwordField_->Render(theme);
 
             ImGui::End();
-
-            ImGui::PopStyleColor(2);
-            ImGui::PopStyleVar(2);
         };
 
         void OnEnter() override {};
@@ -82,6 +75,8 @@ namespace UI::View
 
     private:
         NavCallback navCallback_;
+
+        const Service::ThemeController& themeController_;
 
         // components
         std::unique_ptr<Component::TextInputField> serverAddressField_;

@@ -103,9 +103,11 @@ AppErrorCode Application::Init(const int width, const int height, std::string_vi
         viewManager_->SwitchView(target);
     };
 
+    themeController_ = std::make_unique<Service::ThemeController>();
+
     viewManager_ = std::make_unique<UI::ViewManager>();
-    viewManager_->RegisterView<UI::View::LoginView>(Model::ViewType::LOGIN, navCallback);
-    viewManager_->RegisterView<UI::View::MainView>(Model::ViewType::MAIN, navCallback);
+    viewManager_->RegisterView<UI::View::LoginView>(Model::ViewType::LOGIN, navCallback, *themeController_);
+    viewManager_->RegisterView<UI::View::MainView>(Model::ViewType::MAIN, navCallback, *themeController_);
 
     return AppErrorCode::SUCCESS;
 }
@@ -114,7 +116,7 @@ Application::~Application()
 {
     if (ImGui::GetCurrentContext() != nullptr)
     {
-        ImGuiIO& io = ImGui::GetIO();
+        const ImGuiIO& io = ImGui::GetIO();
         ImGui::DestroyPlatformWindows();
 
         if (io.BackendRendererUserData != nullptr)
@@ -137,7 +139,7 @@ Application::~Application()
 
 void Application::Run()
 {
-    viewManager_->SwitchView(Model::ViewType::LOGIN);
+    viewManager_->SwitchView(Model::ViewType::MAIN);
 
     while (!glfwWindowShouldClose(window_))
     {
@@ -150,7 +152,9 @@ void Application::Render()
 {
     PreRender();
 
+    themeController_->PushGlobalTheme();
     viewManager_->Render();
+    themeController_->PopGlobalTheme();
 
     PostRender();
 }
@@ -158,6 +162,7 @@ void Application::Render()
 void Application::Update()
 {
     glfwPollEvents();
+    viewManager_->Update();
 }
 
 void Application::PreRender() const
@@ -166,7 +171,8 @@ void Application::PreRender() const
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+    //ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
+
 }
 
 void Application::PostRender() const
