@@ -10,44 +10,31 @@ namespace UI::Window
     public:
         virtual ~IWindow() = default;
 
-        virtual void Render(const Model::Theme& theme, const ImGuiViewport& viewport) = 0;
+        void Render(const Model::Theme& theme, const ImGuiViewport& viewport);
+        virtual void RenderContent(const Model::Theme& theme, const ImGuiViewport& viewport) = 0;
 
-        void SetWindowPos(const ImVec2 pos, ImGuiCond_ cond = ImGuiCond_FirstUseEver)
+        void SetWindowPos(const ImVec2 pos)
         {
             pos_ = pos;
-            posCondition_ = cond;
         }
 
-        void SetWindowSize(const ImVec2 size, ImGuiCond_ cond = ImGuiCond_FirstUseEver)
+        void SetWindowSize(const ImVec2 size)
         {
             size_ = size;
-            sizeCondition_ = cond;
-        }
-        void ClearPositionCondition()
-        {
-            posCondition_ = ImGuiCond_None;
-        }
-
-        void ClearSizeCondition()
-        {
-            sizeCondition_ = ImGuiCond_None;
         }
 
         [[nodiscard]] ImVec2 GetWindowSize() const { return size_; }
+        [[nodiscard]] ImVec2 GetWindowPos() const { return pos_; }
 
     protected:
-        ImVec2 size_{};
-        ImVec2 pos_{};
-
-        ImGuiCond_ posCondition_ = ImGuiCond_None;
-        ImGuiCond_ sizeCondition_ = ImGuiCond_None;
+        ImVec2 size_{400.0f, 400.0f};
+        ImVec2 pos_{100.0f, 100.0f};
     };
 
     inline void IWindow::Render(const Model::Theme& theme, const ImGuiViewport& viewport)
     {
-        if (posCondition_ != ImGuiCond_None)
-            ImGui::SetNextWindowPos(pos_, posCondition_);
-        if (sizeCondition_ != ImGuiCond_None)
-            ImGui::SetNextWindowSize(size_, sizeCondition_);
+        ImGui::SetNextWindowSize(size_);
+        ImGui::SetNextWindowPos(pos_);
+        RenderContent(theme, viewport);
     }
 }

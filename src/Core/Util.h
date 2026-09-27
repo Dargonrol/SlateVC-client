@@ -331,7 +331,7 @@ private:
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 0));
-        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(255, 0, 0, 255));
+        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(255, 0, 0, 0));
     }
     static void PopStyle()
     {
