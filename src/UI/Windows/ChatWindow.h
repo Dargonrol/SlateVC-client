@@ -17,11 +17,18 @@ namespace UI::Window
 
             constexpr ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
 
-            ImGui::Begin("ChatWindow", nullptr, windowFlags);
+            ImGui::Begin("Chat Window", nullptr, windowFlags);
             size_ = ImGui::GetWindowSize();
-            ImGui::Text("ChatWindow (Center)");
+            ImGui::SetCursorPos(theme.globalContext.innerWindowPadding);
+            ImGui::BeginChild("child", ImVec2{
+                size_.x - ImGui::GetStyle().ScrollbarSize + Resizable::buttonWidth - theme.globalContext.innerWindowPadding.x,
+                size_.y - ImGui::GetStyle().ScrollbarSize + Resizable::buttonHeight - 2 - theme.globalContext.innerWindowPadding.y
+            });
+
+            ImGui::Text("Chat Window");
+
+            ImGui::EndChild();
             ImGui::End();
         }
-
     };
 }

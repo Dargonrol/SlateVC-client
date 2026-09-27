@@ -75,6 +75,10 @@ public:
 class Resizable
 {
 public:
+    static constexpr float buttonWidth = 4.0f;
+    static constexpr float buttonHeight = 4.0f;
+    static constexpr float padding = 8.0f;
+
     static void MakeWindowResizable_AllDirections(ImVec2& size, const ImVec2& minSize, const ImVec2& maxSize)
     {
         MakeWindowResizable_AllDiagonalDirections(size, minSize, maxSize);
@@ -101,9 +105,8 @@ public:
 
     static void MakeWindowResizable_Top(ImVec2& size, const ImVec2& minSize, const ImVec2& maxSize)
     {
-        constexpr float padding = 8.0f;
+        ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
         const ImVec2 savedCursorPos = ImGui::GetCursorPos();
-        constexpr float buttonWidth = 4.0f;
 
         constexpr float cursorPosX = padding;
         constexpr float cursorPosY = 0.0f;
@@ -116,7 +119,7 @@ public:
         if (ImGui::IsItemActive())
         {
             const float mouseDeltaY = ImGui::GetIO().MouseDelta.y;
-            size.y += mouseDeltaY;
+            size.y -= mouseDeltaY;
             size.y = std::clamp(size.y, minSize.y, maxSize.y);
             ImGui::SetWindowSize(size);
         }
@@ -128,8 +131,7 @@ public:
     }
     static void MakeWindowResizable_Right(ImVec2& size, const ImVec2& minSize, const ImVec2& maxSize)
     {
-        constexpr float padding = 8.0f;
-        constexpr float buttonWidth = 4.0f;
+        ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
         const ImVec2 savedCursorPos = ImGui::GetCursorPos();
 
         const float cursorPosX = size.x - buttonWidth;
@@ -155,9 +157,8 @@ public:
     }
     static void MakeWindowResizable_Bottom(ImVec2& size, const ImVec2& minSize, const ImVec2& maxSize)
     {
-        constexpr float padding = 8.0f;
+        ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
         const ImVec2 savedCursorPos = ImGui::GetCursorPos();
-        constexpr float buttonHeight = 4.0f;
 
         constexpr float cursorPosX = padding;
         const float cursorPosY = size.y - buttonHeight;
@@ -182,8 +183,7 @@ public:
     }
     static void MakeWindowResizable_Left(ImVec2& size, const ImVec2& minSize, const ImVec2& maxSize)
     {
-        constexpr float padding = 8.0f;
-        constexpr float buttonWidth = 4.0f;
+        ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
         const ImVec2 savedCursorPos = ImGui::GetCursorPos();
 
         constexpr float cursorPosX = 0.0f;
@@ -197,7 +197,7 @@ public:
         if (ImGui::IsItemActive())
         {
             const float mouseDeltaX = ImGui::GetIO().MouseDelta.x;
-            size.x += mouseDeltaX;
+            size.x -= mouseDeltaX;
             size.x = std::clamp(size.x, minSize.x, maxSize.x);
             ImGui::SetWindowSize(size);
         }
@@ -210,15 +210,15 @@ public:
 
     static void MakeWindowResizable_TopRight(ImVec2& size, const ImVec2& minSize, const ImVec2& maxSize)
     {
-        constexpr float buttonWidth = 8.0f;
+        ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
         const ImVec2 savedCursorPos = ImGui::GetCursorPos();
 
-        const float cursorPosX = size.x - buttonWidth;
+        const float cursorPosX = size.x - buttonWidth * 2;
         constexpr float cursorPosY = 0.0f;
         ImGui::SetCursorPos(ImVec2{cursorPosX, cursorPosY});
 
         PushStyle();
-        ImGui::Button("##ResizeTopRight", ImVec2{buttonWidth, buttonWidth});
+        ImGui::Button("##ResizeTopRight", ImVec2{buttonWidth * 2, buttonWidth * 2});
         PopStyle();
 
         if (ImGui::IsItemActive())
@@ -239,15 +239,15 @@ public:
     }
     static void MakeWindowResizable_BottomRight(ImVec2& size, const ImVec2& minSize, const ImVec2& maxSize)
     {
-        constexpr float buttonWidth = 8.0f;
+        ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
         const ImVec2 savedCursorPos = ImGui::GetCursorPos();
 
-        const float cursorPosX = size.x - buttonWidth;
-        const float cursorPosY = size.y - buttonWidth;
+        const float cursorPosX = size.x - buttonWidth * 2;
+        const float cursorPosY = size.y - buttonWidth * 2;
         ImGui::SetCursorPos(ImVec2{cursorPosX, cursorPosY});
 
         PushStyle();
-        ImGui::Button("##ResizeBottomRight", ImVec2{buttonWidth, buttonWidth});
+        ImGui::Button("##ResizeBottomRight", ImVec2{buttonWidth * 2, buttonWidth * 2});
         PopStyle();
 
         if (ImGui::IsItemActive())
@@ -268,15 +268,15 @@ public:
     }
     static void MakeWindowResizable_BottomLeft(ImVec2& size, const ImVec2& minSize, const ImVec2& maxSize)
     {
-        constexpr float buttonWidth = 8.0f;
+        ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
         const ImVec2 savedCursorPos = ImGui::GetCursorPos();
 
         constexpr float cursorPosX = 0.0f;
-        const float cursorPosY = size.y - buttonWidth;
+        const float cursorPosY = size.y - buttonWidth * 2;
         ImGui::SetCursorPos(ImVec2{cursorPosX, cursorPosY});
 
         PushStyle();
-        ImGui::Button("##ResizeBottomLeft", ImVec2{buttonWidth, buttonWidth});
+        ImGui::Button("##ResizeBottomLeft", ImVec2{buttonWidth * 2, buttonWidth * 2});
         PopStyle();
 
         if (ImGui::IsItemActive())
@@ -297,7 +297,7 @@ public:
     }
     static void MakeWindowResizable_TopLeft(ImVec2& size, const ImVec2& minSize, const ImVec2& maxSize)
     {
-        constexpr float buttonWidth = 8.0f;
+        ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
         const ImVec2 savedCursorPos = ImGui::GetCursorPos();
 
         constexpr float cursorPosX = 0.0f;
@@ -305,7 +305,7 @@ public:
         ImGui::SetCursorPos(ImVec2{cursorPosX, cursorPosY});
 
         PushStyle();
-        ImGui::Button("##ResizeTopLeft", ImVec2{buttonWidth, buttonWidth});
+        ImGui::Button("##ResizeTopLeft", ImVec2{buttonWidth * 2, buttonWidth * 2});
         PopStyle();
 
         if (ImGui::IsItemActive())
@@ -331,9 +331,8 @@ private:
         ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0, 0, 0, 0));
         ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0, 0, 0, 0));
         ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0, 0, 0, 0));
-        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(0, 0, 0, 0));
+        ImGui::PushStyleColor(ImGuiCol_Border, ImVec4(255, 0, 0, 255));
     }
-
     static void PopStyle()
     {
         ImGui::PopStyleColor(4);

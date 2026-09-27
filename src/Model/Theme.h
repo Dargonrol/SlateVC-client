@@ -18,6 +18,7 @@ namespace Model
         float rounding = 6.0f;
         float borderWidth = 1.0f;
         ImVec2 framePadding = ImVec2(12.0f, 8.0f);
+        ImVec2 innerWindowPadding = ImVec2{4.0f, 4.0f};
 
         static constexpr size_t countStyleVar = 3;
         static constexpr size_t countStyleColor = 6;

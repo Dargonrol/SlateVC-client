@@ -1,8 +1,7 @@
 #pragma once
 
-#include <iostream>
-
 #include "Model/Theme.h"
+#include "Core/Util.h"
 
 namespace UI::Window
 {
@@ -10,6 +9,7 @@ namespace UI::Window
     {
     public:
         virtual ~IWindow() = default;
+
         virtual void Render(const Model::Theme& theme, const ImGuiViewport& viewport) = 0;
 
         void SetWindowPos(const ImVec2 pos, ImGuiCond_ cond = ImGuiCond_FirstUseEver)
@@ -43,9 +43,6 @@ namespace UI::Window
         ImGuiCond_ sizeCondition_ = ImGuiCond_None;
     };
 
-    /**
-     * Updates Window Size and Position
-     */
     inline void IWindow::Render(const Model::Theme& theme, const ImGuiViewport& viewport)
     {
         if (posCondition_ != ImGuiCond_None)

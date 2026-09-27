@@ -15,15 +15,25 @@ namespace UI::Window
             IWindow::Render(theme, viewport);
             InvisibleResizeGrip _;
 
-            //const ImVec2 minSize{60.0f, viewport.WorkSize.y};
-            //const ImVec2 maxSize{120.0f, viewport.WorkSize.y};
-            //ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
-
             constexpr ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize;
+            const ImVec2 minSize{60.0f, viewport.WorkSize.y};
+            const ImVec2 maxSize{120.0f, viewport.WorkSize.y};
+            ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
 
-            ImGui::Begin("NavBar", nullptr, windowFlags);
-            size_ = ImGui::GetWindowSize();
-            ImGui::Text("NAV");
+            ImGui::Begin("Nav Bar", nullptr, windowFlags);
+            {
+                size_ = ImGui::GetWindowSize();
+                ImGui::SetCursorPos(theme.globalContext.innerWindowPadding);
+                ImGui::BeginChild("child", ImVec2{
+                    size_.x - ImGui::GetStyle().ScrollbarSize + Resizable::buttonWidth - theme.globalContext.innerWindowPadding.x,
+                    size_.y - ImGui::GetStyle().ScrollbarSize + Resizable::buttonHeight - 2 - theme.globalContext.innerWindowPadding.y
+                });
+
+                ImGui::Text("NAV");
+
+                ImGui::EndChild();
+            }
+            Resizable::MakeWindowResizable_Right(size_, minSize, maxSize);
             ImGui::End();
         }
     };
