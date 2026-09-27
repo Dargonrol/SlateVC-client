@@ -9,15 +9,12 @@ namespace UI::Window
 {
     class ContextList :public IWindow
     {
-    public:
-        void RenderContent(const Model::Theme& theme, const ImGuiViewport& viewport) override
+    protected:
+        void RenderContent(const Model::Theme& theme, const Model::VirtualViewport& viewport) override
         {
             InvisibleResizeGrip _;
 
             constexpr ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings;
-            const ImVec2 minSize{240.0f, viewport.WorkSize.y - theme.globalContext.outerWindowPadding.y * 2};
-            const ImVec2 maxSize{300.0f, viewport.WorkSize.y - theme.globalContext.outerWindowPadding.y * 2};
-            ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
 
             ImGui::Begin("Context List", nullptr, windowFlags);
             {
@@ -30,7 +27,7 @@ namespace UI::Window
                     ImGui::Text("Context");
                 }
                 ImGui::EndChild();
-                Resizable::MakeWindowResizable_Left(size_, minSize, maxSize);
+                Resizable::MakeWindowResizable_Left(resizeDeltaSize_, resizeDeltaPos_);
             }
             ImGui::End();
         }

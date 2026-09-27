@@ -19,9 +19,14 @@ namespace UI {
             registeredViews_[viewType] = std::make_unique<T>(std::forward<Args>(args)...);
         }
 
+        void InitializeViews();
+        void InitializeView(Model::ViewType type);
+
         void Render() const;
         void Update() const;
         void SwitchView(Model::ViewType type);
+
+        void OnViewportResize(const ImVec2& oldSize, const ImVec2& newSize) const;
 
         [[nodiscard]] Model::ViewType GetCurrentViewType() const;
 

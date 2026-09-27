@@ -9,15 +9,12 @@ namespace UI::Window
 {
     class NavigationBar : public IWindow
     {
-    public:
-        void RenderContent(const Model::Theme& theme, const ImGuiViewport& viewport) override
+    protected:
+        void RenderContent(const Model::Theme& theme, const Model::VirtualViewport& viewport) override
         {
             InvisibleResizeGrip _;
 
             constexpr ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings;
-            const ImVec2 minSize{60.0f, viewport.WorkSize.y - theme.globalContext.outerWindowPadding.y * 2};
-            const ImVec2 maxSize{120.0f, viewport.WorkSize.y - theme.globalContext.outerWindowPadding.y * 2};
-            ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
 
             ImGui::Begin("Nav Bar", nullptr, windowFlags);
             {
@@ -31,7 +28,7 @@ namespace UI::Window
 
                 ImGui::EndChild();
             }
-            Resizable::MakeWindowResizable_Right(size_, minSize, maxSize);
+            Resizable::MakeWindowResizable_Right(resizeDeltaSize_);
             ImGui::End();
         }
     };

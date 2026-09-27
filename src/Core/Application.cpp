@@ -23,8 +23,13 @@ void WindowResizeCallback(GLFWwindow* window, const int width, const int height)
 
     auto* app = static_cast<Application*>(glfwGetWindowUserPointer(window));
 
+
     if (app)
     {
+        const ImVec2 oldSize = app->GetLastWindowSize();
+        const ImVec2 newSize = { static_cast<float>(width), static_cast<float>(height) };
+        app->GetViewManager()->OnViewportResize(oldSize, newSize);
+        app->SetLastWindowSize(newSize);
     }
 }
 
@@ -50,7 +55,7 @@ Application::Application(AppErrorCode* error) : window_(nullptr)
 #endif
 }
 
-AppErrorCode Application::Init(const int width, const int height, std::string_view title)
+AppErrorCode Application::Init(const int width, const int height, const std::string_view title)
 {
     {
         glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
@@ -63,11 +68,12 @@ AppErrorCode Application::Init(const int width, const int height, std::string_vi
         }
 
         window_ = window;
+        SetLastWindowSize({static_cast<float>(width), static_cast<float>(height)});
     }
 
     glfwSetWindowUserPointer(window_, this);
 
-    //glfwSetFramebufferSizeCallback(window_, WindowResizeCallback);
+    glfwSetFramebufferSizeCallback(window_, WindowResizeCallback);
 
     glfwMakeContextCurrent(window_);
     glfwSwapInterval(1); // VSync, enabled for now
@@ -170,7 +176,10 @@ void Application::PreRender() const
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
-
+    ImGuiViewport* viewport = ImGui::GetMainViewport();
+    if (viewport->WorkSize.x <= 0 || viewport->WorkSize.y <= 0)
+        return;
+    viewManager_->InitializeViews();
     //ImGui::DockSpaceOverViewport(0, ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 
 }

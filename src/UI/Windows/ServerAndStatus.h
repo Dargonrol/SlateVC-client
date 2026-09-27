@@ -9,29 +9,26 @@ namespace UI::Window
 {
     class ServerAndStatus :public IWindow
     {
-    public:
-        void RenderContent(const Model::Theme& theme, const ImGuiViewport& viewport) override
+    protected:
+        void RenderContent(const Model::Theme& theme, const Model::VirtualViewport& viewport) override
         {
             InvisibleResizeGrip _;
 
             constexpr ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoSavedSettings;
-            const ImVec2 minSize{200.0f, viewport.WorkSize.y - theme.globalContext.outerWindowPadding.y * 2};
-            const ImVec2 maxSize{340.0f, viewport.WorkSize.y - theme.globalContext.outerWindowPadding.y * 2};
-            ImGui::SetNextWindowSizeConstraints(minSize, maxSize);
 
             ImGui::Begin("Server And Status", nullptr, windowFlags);
             {
                 ImGui::SetCursorPos(theme.globalContext.innerWindowPadding);
                 ImGui::BeginChild("child", ImVec2{
-                    size_.x - ImGui::GetStyle().ScrollbarSize + Resizable::buttonWidth - theme.globalContext.innerWindowPadding.x,
-                    size_.y - ImGui::GetStyle().ScrollbarSize + Resizable::buttonHeight - 2 - theme.globalContext.innerWindowPadding.y
+                    size_.x - ImGui::GetStyle().ScrollbarSize + Resizable::buttonWidth - theme.globalContext.innerWindowPadding.x * 2.0f,
+                    size_.y - ImGui::GetStyle().ScrollbarSize + Resizable::buttonHeight - 2 - theme.globalContext.innerWindowPadding.y * 2.0f
                 });
                 {
                     ImGui::Text("Server and Status");
                 }
                 ImGui::EndChild();
             }
-            Resizable::MakeWindowResizable_Right(size_, minSize, maxSize);
+            Resizable::MakeWindowResizable_AllDirections(resizeDeltaSize_, resizeDeltaPos_);
             ImGui::End();
         }
     };
