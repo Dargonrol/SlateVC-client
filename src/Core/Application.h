@@ -14,8 +14,16 @@ namespace Core
     class Application
     {
     public:
-        explicit Application(AppErrorCode* error = nullptr);
-        ~Application();
+        Application(const Application&) = delete;
+        Application& operator=(const Application&) = delete;
+        Application(Application&&) = delete;
+        Application& operator=(Application&&) = delete;
+
+        static Application& Get()
+        {
+            static Application instance;
+            return instance;
+        }
 
         AppErrorCode Init(int width, int height, std::string_view title);
         void Run();
@@ -24,8 +32,11 @@ namespace Core
         void SetLastWindowSize(const ImVec2 size) {lastSize = size; }
         [[nodiscard]] ImVec2& GetLastWindowSize() { return lastSize; }
         [[nodiscard]] UI::ViewManager* GetViewManager() const { return viewManager_.get(); }
+        [[nodiscard]] GLFWwindow* GetWindow() const { return window_; }
 
     private:
+        explicit Application(AppErrorCode* error = nullptr);
+        ~Application();
 
         void Update();
         void PreRender() const;

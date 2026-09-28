@@ -66,7 +66,7 @@ namespace UI::View
             navBar_.SetCustomConstrains(minSize, maxSize);
             navBar_.autoResizeVertical = true;
             navBar_.showDebugChildArea = true;
-            navBar_.showDebugResizeArea = true;
+            //navBar_.showDebugResizeArea = true;
             navBar_.resizableFlags = Resizable::ResizableRight;
         }
 
@@ -78,7 +78,7 @@ namespace UI::View
             serverAndStatus_.SetCustomConstrains(minSize, maxSize);
             serverAndStatus_.autoResizeVertical = true;
             serverAndStatus_.showDebugChildArea = true;
-            serverAndStatus_.showDebugResizeArea = true;
+            //serverAndStatus_.showDebugResizeArea = true;
             serverAndStatus_.resizableFlags = Resizable::ResizableRight;
         }
 
@@ -90,7 +90,7 @@ namespace UI::View
             contextList_.SetCustomConstrains(minSize, maxSize);
             contextList_.autoResizeVertical = true;
             contextList_.showDebugChildArea = true;
-            contextList_.showDebugResizeArea = true;
+            //contextList_.showDebugResizeArea = true;
             contextList_.resizableFlags = Resizable::ResizableLeft;
         }
 

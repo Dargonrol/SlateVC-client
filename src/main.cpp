@@ -5,17 +5,9 @@
 
 int main ()
 {
-    Core::AppErrorCode errorCode;
+    Core::Application::Get().Init(720, 400, "SlateVC");
 
-    Core::Application app{&errorCode};
-    if (errorCode != Core::AppErrorCode::SUCCESS)
-        return -1;
-
-    errorCode = app.Init(720, 400, "SlateVC");
-    if (errorCode != Core::AppErrorCode::SUCCESS)
-        return -1;
-
-    app.Run();
+    Core::Application::Get().Run();
 
     return 0;
 }

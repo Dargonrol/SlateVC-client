@@ -1,7 +1,7 @@
 #pragma once
 #include "IWindow.h"
 
-#include "Core/Util.h"
+#include "Core/Application.h"
 
 #include <imgui.h>
 
@@ -27,7 +27,23 @@ namespace UI::Window
 
         void RenderContent(const Model::Theme& theme, const Model::VirtualViewport& viewport) override
         {
-            size_ = ImGui::GetWindowSize();
+            ImGui::PushStyleColor(ImGuiCol_Button,          ImVec4(0.0f, 0.0f, 0.0f, 0.0f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered,   ImVec4(0.85f, 0.2f, 0.2f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive,    ImVec4(0.95f, 0.1f, 0.1f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_Text,            ImVec4(0.9f, 0.9f, 0.9f, 1.0f));
+
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding,    ImVec2(0.0f, 0.0f));
+            ImGui::PushStyleVar(ImGuiStyleVar_ButtonTextAlign,  ImVec2{0.5f, 0.5f});
+
+            const float buttonWidth = size_.y;
+            ImGui::SetCursorPosX(ImGui::GetWindowWidth() - buttonWidth);
+            if (ImGui::Button("X##CloseBtn", ImVec2(buttonWidth, buttonWidth)))
+            {
+                glfwSetWindowShouldClose(Core::Application::Get().GetWindow(), GLFW_TRUE);
+            }
+
+            ImGui::PopStyleColor(4);
+            ImGui::PopStyleVar(2);
         }
 
         void PostRender(const Model::Theme& theme, const Model::VirtualViewport& viewport) override
