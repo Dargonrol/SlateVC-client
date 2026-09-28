@@ -33,8 +33,8 @@ namespace UI::Window
 
         void PostContentRender(const Model::Theme& theme, const Model::VirtualViewport& viewport) override
         {
-            ImGui::PopStyleColor(4); // Pop the 4 colors we pushed
-            ImGui::PopStyleVar(1);   // Pop the style var
+            ImGui::PopStyleColor(4);
+            ImGui::PopStyleVar(1);
         }
     };
 }
