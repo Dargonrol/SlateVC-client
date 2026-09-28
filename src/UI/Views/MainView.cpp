@@ -54,8 +54,6 @@ namespace UI::View
             const ImVec2 minSize{contentArea_.WorkSize.x - theme.globalContext.outerWindowPadding.x * 2.0f, FLT_MIN};
             const ImVec2 maxSize{contentArea_.WorkSize.x - theme.globalContext.outerWindowPadding.x * 2.0f, FLT_MAX};
             titleBar_.SetCustomConstrains(minSize, maxSize);
-            titleBar_.autoResizeHorizontal = true;
-            titleBar_.floating = false;
         }
 
         RecalculateWorkspace();
@@ -63,39 +61,46 @@ namespace UI::View
         // INIT navbar window
         {
             navBar_.SetWindowSize({60.0f, contentArea_.WorkSize.y});
-            const ImVec2 minSize{60.0f, FLT_MIN};
-            const ImVec2 maxSize{120.0f, FLT_MAX};
+            constexpr ImVec2 minSize{60.0f, FLT_MIN};
+            constexpr ImVec2 maxSize{120.0f, FLT_MAX};
             navBar_.SetCustomConstrains(minSize, maxSize);
             navBar_.autoResizeVertical = true;
-            navBar_.floating = false;
+            navBar_.showDebugChildArea = true;
+            navBar_.showDebugResizeArea = true;
+            navBar_.resizableFlags = Resizable::ResizableRight;
         }
 
         // INIT server and status window
         {
             serverAndStatus_.SetWindowSize({200.0f, contentArea_.WorkSize.y});
-            const ImVec2 minSize{200.0f, FLT_MIN};
-            const ImVec2 maxSize{340.0f, FLT_MAX};
+            constexpr ImVec2 minSize{200.0f, FLT_MIN};
+            constexpr ImVec2 maxSize{340.0f, FLT_MAX};
             serverAndStatus_.SetCustomConstrains(minSize, maxSize);
             serverAndStatus_.autoResizeVertical = true;
-            serverAndStatus_.floating = false;
+            serverAndStatus_.showDebugChildArea = true;
+            serverAndStatus_.showDebugResizeArea = true;
+            serverAndStatus_.resizableFlags = Resizable::ResizableRight;
         }
 
         // INIT context list window
         {
             contextList_.SetWindowSize({240.0f, contentArea_.WorkSize.y});
-            const ImVec2 minSize{240.0f, FLT_MIN};
-            const ImVec2 maxSize{300.0f, FLT_MAX};
+            constexpr ImVec2 minSize{240.0f, FLT_MIN};
+            constexpr ImVec2 maxSize{300.0f, FLT_MAX};
             contextList_.SetCustomConstrains(minSize, maxSize);
             contextList_.autoResizeVertical = true;
-            contextList_.floating = false;
+            contextList_.showDebugChildArea = true;
+            contextList_.showDebugResizeArea = true;
+            contextList_.resizableFlags = Resizable::ResizableLeft;
         }
 
         // INIT chat window
         {
-            const ImVec2 minSize{10.0f, FLT_MIN};
-            const ImVec2 maxSize{FLT_MAX, FLT_MAX};
+            constexpr ImVec2 minSize{10.0f, FLT_MIN};
+            constexpr ImVec2 maxSize{FLT_MAX, FLT_MAX};
             chatWindow_.SetCustomConstrains(minSize, maxSize);
             chatWindow_.autoResizeVertical = true;
+            chatWindow_.showDebugChildArea = true;
             chatWindow_.floating = false;
         }
     }
